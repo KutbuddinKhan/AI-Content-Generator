@@ -1,15 +1,24 @@
+import Auth from "@/components/Auth";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import {auth} from "@clerk/nextjs/server"
+import { redirect } from "next/navigation";
 
 export default function Home() {
+  const {userId} = auth();
+
+  if(userId) {
+    redirect('/dashboard')
+  }
+
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 mt-5 lg:px-6 h-14 flex items-center">
         <Logo />
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          Auth
+          <Auth />
         </nav>
       </header>
       <main className="flex-1">
