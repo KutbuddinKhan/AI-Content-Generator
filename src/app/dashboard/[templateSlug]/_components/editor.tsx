@@ -1,22 +1,20 @@
-"use client"
+"use client";
 
-import React, { useMemo } from 'react'
-import dynamic from 'next/dynamic'
-import "react-quill/dist/quill.snow.css"
-import ReactQuill from 'react-quill'
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+import "react-quill/dist/quill.snow.css";
 
-const Editor = ({ value }: { value: string }) => {
-    const ReactQuill = useMemo(
-        () => dynamic(() => import("react-quill"), { ssr: false }),
-        []
-    );
-    return (
-        <ReactQuill
-            theme='snow'
-            value={value}
-            className='h-[350px] pb-10 bg-white whitespace-pre-wrap'
-        />
-    )
-}
+export const Editor = ({ value }: { value: string }) => {
+  const ReactQuill = useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
 
-export default Editor
+  return (
+    <ReactQuill
+      theme="snow"
+      value={value}
+      className="h-[350px] pb-10 bg-white whitespace-pre-wrap"
+    ></ReactQuill>
+  );
+};

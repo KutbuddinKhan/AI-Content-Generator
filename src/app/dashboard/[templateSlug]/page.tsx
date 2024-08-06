@@ -6,7 +6,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { contentTemplates } from '@/lib/content-templates'
 import { Loader2 } from 'lucide-react'
 import React, { useState } from 'react'
-import Editor from './_components/editor'
+import { chatSession } from '@/lib/gemini-ai'
+import { Editor } from './_components/editor'
 
 interface templateSlugProps {
   templateSlug: string
@@ -14,7 +15,32 @@ interface templateSlugProps {
 
 const TemplatePage = ({ params }: { params: templateSlugProps }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [aiOutput, setAiOutput] = useState<string>("")
+
   const selectedTemplate = contentTemplates.find((item) => item.slug === params.templateSlug)
+
+  const generateAIContent = async (formData: FormData) => {
+    setIsLoading(true);
+    try {
+      let dataSet = {
+        title: formData.get("title"),
+        description: formData.get("description"),
+      };
+
+      const selectedPrompt = selectedTemplate?.aiPrompt;
+      const finalAIPrompt = JSON.stringify(dataSet) + ", " + selectedPrompt;
+
+      const result = await chatSession.sendMessage(finalAIPrompt);
+      setAiOutput(result.response.text());
+
+      setIsLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const onSubmit = async (formData: FormData) => {
+    generateAIContent(formData);
+  };
 
   return (
     <div className='mx-5 py-2'>
@@ -24,7 +50,7 @@ const TemplatePage = ({ params }: { params: templateSlugProps }) => {
         </h1>
       </div>
 
-      <form>
+      <form action={onSubmit}>
         <div className='flex flex-col gap-4 p-5 mt-5 bg-white'>
           {selectedTemplate?.form?.map((form) => (
             <div key={selectedTemplate.slug}>
@@ -52,7 +78,7 @@ const TemplatePage = ({ params }: { params: templateSlugProps }) => {
       </form>
 
       <div className='my-10'>
-        <Editor value={isLoading ? "Generating..." : "aiOutput"} />
+        <Editor value={isLoading ? "Generating..." : aiOutput} />
       </div>
     </div>
   )
