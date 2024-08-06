@@ -1,12 +1,17 @@
-import React from 'react'
+"use client"
+
+import React, { useState } from 'react'
 import SearchDashboard from './_components/search-dashboard'
 import TemplateList from './_components/template-list'
 
 const Dashboard = () => {
+  const [searchInput, setSearchInput] = useState<string>()
+
+
   return (
     <div>
-      <SearchDashboard /> 
-      <TemplateList />
+      <SearchDashboard onSearchInput={setSearchInput} />
+      <TemplateList searchInput={searchInput as string} />
     </div>
   )
 }
