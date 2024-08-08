@@ -19,6 +19,7 @@ const Upgrade = () => {
   const handleOnClick = async () => {
     const response = await axios.post('/api/upgrade/checkout')
     // push user to the stripe url
+    router.push(response.data.url)
   }
   return (
     <div className='mx-5 py-2'>
