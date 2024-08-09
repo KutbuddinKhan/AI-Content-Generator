@@ -40,3 +40,5 @@ export const AIUsage = async () => {
     </div>
   );
 };
+
+export default AIUsage;
