@@ -1,6 +1,6 @@
 import React from "react";
 import { AIUsage } from "./_components/ai-usage";
-import Sidebar from "@/components/sidebar";
+import Sidebar from "../../components/Sidebar"
 
 const DashboardLayout = ({
   children,
