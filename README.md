@@ -3,7 +3,7 @@
 
 # CreativeAI
 
-![CreativeAI Dashboard](path_to_image.png)
+![CreativeAI Dashboard]([path_to_image.png](https://github.com/KutbuddinKhan/AI-Content-Generator/blob/master/public/Dashboard.jpeg))
 
 [![CreativeAI Live](https://img.shields.io/badge/Live-Website-brightgreen)](https://creativeai-murex.vercel.app/)
 
